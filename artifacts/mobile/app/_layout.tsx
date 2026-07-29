@@ -15,6 +15,7 @@ import { Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import { DataProvider } from '@/contexts/DataContext';
+import PwaInstallBanner from '@/components/PwaInstallBanner';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -71,6 +72,7 @@ export default function RootLayout() {
               <AuthProvider>
                 <DataProvider>
                   <RootLayoutNav />
+                  <PwaInstallBanner />
                 </DataProvider>
               </AuthProvider>
             </KeyboardProvider>

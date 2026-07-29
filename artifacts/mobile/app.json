@@ -20,7 +20,17 @@
       "backgroundColor": "#0F1F45"
     },
     "web": {
-      "favicon": "./assets/images/icon.png"
+      "favicon": "./assets/images/icon.png",
+      "themeColor": "#0F1F45",
+      "backgroundColor": "#0F1F45",
+      "name": "Pilar",
+      "shortName": "Pilar",
+      "description": "Plataforma de Inovação Local Articulada em Recife",
+      "lang": "pt-BR",
+      "scope": "/",
+      "startUrl": "/",
+      "display": "standalone",
+      "orientation": "portrait"
     },
     "plugins": [
       [
