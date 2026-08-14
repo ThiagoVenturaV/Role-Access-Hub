@@ -28,7 +28,7 @@ function RootLayoutNav() {
 
   useEffect(() => {
     if (isLoading) return;
-    const inAuthGroup = segments[0] === undefined || segments[0] === 'index';
+    const inAuthGroup = segments[0] === undefined;
     if (user && inAuthGroup) {
       router.replace(`/${user.role}` as any);
     } else if (!user && !inAuthGroup) {

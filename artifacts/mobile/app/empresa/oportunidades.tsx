@@ -77,7 +77,7 @@ export default function EmpresaOportunidades() {
           <View key={p.id} style={[styles.card, { backgroundColor: colors.card, borderColor: colors.border }]}>
             <View style={styles.cardTop}>
               <View style={[styles.cardBadge, { backgroundColor: TEAL_LIGHT }]}>
-                <Ionicons name="handshake" size={12} color={TEAL} />
+                <Ionicons name="people" size={12} color={TEAL} />
                 <Text style={[styles.cardBadgeText, { color: TEAL }]}>Parceria Aberta</Text>
               </View>
               <View style={styles.votosChip}>

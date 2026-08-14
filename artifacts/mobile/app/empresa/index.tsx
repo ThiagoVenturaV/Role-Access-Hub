@@ -89,7 +89,7 @@ export default function EmpresaHome() {
               <Text style={[styles.projMetaText, { color: colors.mutedForeground }]}>{p.membros.length} membros · {p.bairro}</Text>
             </View>
             <TouchableOpacity style={[styles.partnerBtn, { backgroundColor: TEAL }]} activeOpacity={0.85}>
-              <Ionicons name="handshake" size={15} color="#FFFFFF" />
+              <Ionicons name="people" size={15} color="#FFFFFF" />
               <Text style={styles.partnerBtnText}>Quero Parcerizar</Text>
             </TouchableOpacity>
           </View>
