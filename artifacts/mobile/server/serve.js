@@ -67,8 +67,13 @@ function serveManifest(platform, res) {
 
 function serveLandingPage(req, res, landingPageTemplate, appName) {
   const forwardedProto = req.headers['x-forwarded-proto'];
-  const protocol = forwardedProto || 'https';
-  const host = req.headers['x-forwarded-host'] || req.headers['host'];
+  const protocol = forwardedProto === 'http' ? 'http' : 'https';
+  const host = String(req.headers['x-forwarded-host'] || req.headers['host'] || '');
+  if (!/^[a-z0-9.-]+(?::\d{1,5})?$/i.test(host)) {
+    res.writeHead(400, { 'content-type': 'text/plain; charset=utf-8' });
+    res.end('Invalid host');
+    return;
+  }
   const baseUrl = `${protocol}://${host}`;
   const expsUrl = `${host}`;
 
@@ -82,10 +87,11 @@ function serveLandingPage(req, res, landingPageTemplate, appName) {
 }
 
 function serveStaticFile(urlPath, res) {
-  const safePath = path.normalize(urlPath).replace(/^(\.\.(\/|\\|$))+/, '');
-  const filePath = path.join(STATIC_ROOT, safePath);
+  const safePath = path.normalize(urlPath).replace(/^[/\\]+/, '');
+  const filePath = path.resolve(STATIC_ROOT, safePath);
+  const relativePath = path.relative(STATIC_ROOT, filePath);
 
-  if (!filePath.startsWith(STATIC_ROOT)) {
+  if (relativePath.startsWith('..') || path.isAbsolute(relativePath)) {
     res.writeHead(403);
     res.end('Forbidden');
     return;
@@ -108,6 +114,9 @@ const landingPageTemplate = fs.readFileSync(TEMPLATE_PATH, 'utf-8');
 const appName = getAppName();
 
 const server = http.createServer((req, res) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('Referrer-Policy', 'no-referrer');
+  res.setHeader('X-Frame-Options', 'DENY');
   const url = new URL(req.url || '/', `http://${req.headers.host}`);
   let pathname = url.pathname;
 
